@@ -1,0 +1,10 @@
+BandParameter,InAs,GaAs,InSb
+BandGap_meV,417,1519,235
+meStar,0.026,0.067,0.0135
+gamma1,20,6.98,34.8
+gamma2,8.5,2.06,15.5
+gamma3,9.2,2.93,16.5
+alpha,0.276,0.5405,0.32
+beta,93,204,170
+einf,11.8,10.8,15.7
+F1F2,0.15,0.15,0.15
