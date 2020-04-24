@@ -1,4 +1,4 @@
-function [Nc] = densityInConduction(T,meStar)
+function [Nc] = densityInConduction(x,meStar)
 % This is calculating formula 3.3 in
 % W. Shockley and W.T. Read, Jr. Phys. Rev. 87, 835 (1952)
 % Statistics of the Recombinations of Holes and Electrons
@@ -9,6 +9,12 @@ function [Nc] = densityInConduction(T,meStar)
 %TODO: compare these calculated values with Fermi-Dirac statistics
 %NOTE: we are working in SI units here, so energy is in Joules, not eV
 
+%make it row vector
+if(size(x,1)>1)
+    T = x';
+else
+    T = x;
+end
 
 %Boltzmann constant in Joules/Kelvin
 kb = 1.380649e-23;

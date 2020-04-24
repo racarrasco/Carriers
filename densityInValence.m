@@ -1,4 +1,4 @@
-function [Nv] = densityInValence(T,mhStar)
+function [Nv] = densityInValence(x,mhStar)
 % This is calculating formula 3.3 in
 % W. Shockley and W.T. Read, Jr. Phys. Rev. 87, 835 (1952)
 % Statistics of the Recombinations of Holes and Electrons
@@ -6,6 +6,15 @@ function [Nv] = densityInValence(T,mhStar)
 %The integral is approximating fermi-Dirac statistics to Boltzmann
 %statistics, the approximation may fail
 % TODO: compare these calculated values with Fermi-Dirac statistics
+
+
+%make it  a row vector
+if(size(x,1)>1)
+    T = x';
+else
+    T = x;
+end
+
 
 
 %Boltzmann constant in Joules/Kelvin
