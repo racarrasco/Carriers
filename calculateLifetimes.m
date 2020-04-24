@@ -1,7 +1,6 @@
 function[totalLifetime, tauRad, tauSRH, tauAug] =...
-    calculateLifetimes(Tprobe, type, meStar, mhStar, egTempDep, eg300, ...
-    valenceEdge, conductionEdge,f1f2,einf,Nc, Nv, ni, G, phi, thickness,...
-    capRefractive, a, b, c)
+    calculateLifetimes(Tprobe, type, meStar, mhStar, egTempDep, ...
+    valenceEdge, conductionEdge,f1f2,einf,Nc, Nv, ni, G, phi, a, b, c)
 % Calculate all of the lifetime components and add them together the rates
 % are added then the reciprocal of the total rate is the total lifetime
 
@@ -28,11 +27,12 @@ defectDensity = c;
 %doi: https://doi.org/10.1063/1.323633
 
 %put it in units of microseconds
-tauRad = phi.*1e6 .*radiativeLifetime(Tprobe, type, meStar, mhStar, egTempDep,...
-    eg300,  dopingDensity);
+tauRad = phi.*1e6 .*radiativeLifetime(type, ni, G, dopingDensity);
 
-tauSRH = 1e6.*shockleyReadHallLifetime(Tprobe, type, meStar, mhStar,valenceEdge,...
-                conductionEdge, defectLevel, defectDensity,dopingDensity);
+tauSRH = ...
+1e6.*shockleyReadHallLifetime(Tprobe, type, meStar, mhStar,Nc, Nv, ni,...
+valenceEdge, conductionEdge, defectLevel, defectDensity,dopingDensity);
+
 
 tauAug = 1e6.*augerLifetime(Tprobe, type, meStar, mhStar, f1f2,egTempDep, einf,dopingDensity);
 
