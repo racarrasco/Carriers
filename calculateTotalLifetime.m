@@ -1,36 +1,67 @@
 function[totalLifetime] = calculateTotalLifetime(...
-    x, a, b, c, d, e, f, g, h, k, l, m, n, o, p, q, r, s)
-% Calculate all of the lifetime components and add them together the rates
+    x, a, b, c, d, e, f, g, h, k, l, m, n, o, p, q, r)
+% Calculate all of the lifetime components and add them together. The rates
 % are added then the reciprocal of the total rate is the total lifetime
 % This is for the fitting routine where the single output is the total
-% lifetime output, This is 
+% lifetime output, SO THIS FILE WILL BE HARD TO READ, IN ORDER TO
+% UNDERSTAND THE CODE BETTER (AND QUICKER) SEE THE FILE 
+% calculateLifetimes.m 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%Input Parameters %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% x = Temperature that will be used to calculate the total lifetime
+% a = doping type n-type or p-type
+% b = meStar, the effective mass of conduction electron
+% c = mhStar, the effective mass of the heavy hole valence electron
+% d = egTempDep the temperature dependent band gap
+% e = Ev the valence edge energy (taken as the negative band gap)
+% f = Ec the conduction edge energy (taken as the 0 reference) 
+% g = f1f2 the overlap integral for auger calculation
+% h = einf the static dielectric constant below the absorption edge
+% k = Nc the conduction band effective density of states
+% l = Nv the valence band effective density of states
+% m = ni the intrinsic carrier concentration
+% n = G  the radiative generation rate 
+% o = phi the photon recycling factor
+
+
+% FITTING PARAMETERS
+% p = doping density in units of 1e-15cm^(-3)
+% q = defect level in reference to the conduction band
+% r = defect density in units of inverse meters
+
+
+
 
 %These will be the fit parameters, and MATLAB arranges the fit parameters
 %alphabetically, so a rename is performed in order understand the code
-dopingDensity = q;
-defectLevel = r;
-defectDensity = s; 
+dopingDensity = p;
+defectLevel = q;
+defectDensity = r; 
 
 
-%this has some similarity to Asbeck's calculation of photon recycling
-%found here: P. Asbeck, J. Appl. Phy. vol 48, p 820 (1977). Self-absorption
-%on the radiative lifetime in GaAs-GaAlAs double heterostructures
-%doi: https://doi.org/10.1063/1.323633
-photonRecycling = get_photon_recycling_factor(1200, p, o);
 
-phi = 1/(1-photonRecycling);
 
 %put it in units of microseconds
-tauRad = phi.*1e6 .*radiativeLifetime(x, a, b, c, d,...
-    e, l, m, n, dopingDensity);
 
-tauSRH = 1e6.*shockleyReadHallLifetime(x, a, b, c,f,...
-                h, defectLevel, defectDensity,dopingDensity);
+%tauRad = phi.*1e6 .*radiativeLifetime(type, ni, G, dopingDensity);
+tauRad = o.*1e6 .*radiativeLifetime(a, m, n, dopingDensity);
 
-tauAug = 1e6.*augerLifetime(x, a, b, c, g,d, k,dopingDensity);
+
+% tauSRH =  
+% 1e6.*shockleyReadHallLifetime(Tprobe, type, meStar, mhStar,Nc,
+%                Nv, ni, valenceEdge, conductionEdge, defectLevel, 
+%                defectDensity, dopingDensity);
+tauSRH = 1e6.*...
+       shockleyReadHallLifetime(x, a, b, c, k, l, m, e, f, defectLevel,...
+       defectDensity, dopingDensity);
+
+
+% tauAug = 1e6.*augerLifetime(Tprobe(x), type(a), meStar(b), mhStar(c), f1f2(g),
+% egTempDep(d), einf(h),dopingDensity);
+tauAug = 1e6.*augerLifetime(x, a, b, c, g, d, h, dopingDensity);
+
+
 
 totalLifetime = 1./(1./tauRad + 1./tauSRH + 1./tauAug);

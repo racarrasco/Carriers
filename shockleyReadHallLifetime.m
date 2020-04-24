@@ -53,18 +53,21 @@ meFree = 9.10938356e-31;
 
 n0 = 0;
 p0 = 0;
+
+%the input is in units of 1e15 1/cm^3 (so we need to put it in 1/cm^3)
+D = dopingDensity*1e15;
 switch(type)
     case('p')
        %We have p-type doping
          %Uses the law of mass action to calculate the density of electrons
          %and holes in the conduction and valence band, respectively
-         p0 = 0.5.*(sqrt(dopingDensity^2 + 4.*ni.^2) + dopingDensity);
+         p0 = 0.5.*(sqrt(D^2 + 4.*ni.^2) + D);
          n0 = ni.^2./p0;
     case('n')
         %we have n-type doping
         %uses the law of mass action to calculate the density of electrons
         %and holes in the conduction and valence band, respectively
-        n0 = 0.5.*(sqrt(dopingDensity^2 + 4.*ni.^2) + dopingDensity);
+        n0 = 0.5.*(sqrt(D^2 + 4.*ni.^2) + D);
         p0 = ni.^2./n0;
     otherwise
         %We have an intrinsic sample

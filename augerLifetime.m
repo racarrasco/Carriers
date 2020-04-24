@@ -23,8 +23,10 @@ meStar = b; %electron effective mass
 mhStar = c; %hole effective mass
 F1F2 = d;  %Bloch overlap function
 eg = f;    % temperature dependent band gap
-einf = g;  %high-frequency dielectric constant
-dopingDensity = h; 
+einf = g;  %high-frequency dielectric constant]
+
+%The original input is in units of 1e15 so lets put it to 1e15
+dopingDensity = h*1e15; 
 
 %electron charge in Coulomb
 e = 1.602176634e-19;    

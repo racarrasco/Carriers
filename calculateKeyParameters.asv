@@ -18,7 +18,6 @@ phi = 1./(1-photonRecycling);
 Nc = densityInConduction(temp, meStar);
 Nv = densityInValence(temp, mhStar);
 
-%Calculate the radiative generation rate
 G = calcRadGenRate(nRefractive, kExtinction, temp,photonEnergyum, eg300);
 
 %Calculate the intrinsic carrier concentration
