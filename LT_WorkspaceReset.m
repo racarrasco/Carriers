@@ -1,5 +1,10 @@
 % This script serves to empty key vectors used in the LT tool should they already exist in the Matlab workspace 
 
-Time_Axis    = [];
-Temperatures = [];
-RawData      = [];
+Temperature =[];
+t0_vTemp = [];
+SampleName = '';
+Excitations = [];
+tauRad = [];
+tauSRH = [];
+tauAug = [];
+totalLifetime = [];
