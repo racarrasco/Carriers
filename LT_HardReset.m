@@ -15,7 +15,7 @@ app.ErrorReport.Value = ''; % Error report field - Clear
 % app.UserAxisLimits.Value = 0; % User axis limits checkbox - Uncheck
 
 % Decay Plot - Clear the decay plot
-title( app.UIAxes , 'Photogenerated Carrier Decay' )
+title( app.UIAxes , 'Temperature Dependence' )
 scatter( app.UIAxes , 1 , 1 , 'x' )  
 xlim( app.UIAxes , 'Auto' )
 ylim( app.UIAxes , 'Auto' ) 
