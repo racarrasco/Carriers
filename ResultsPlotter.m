@@ -6,8 +6,8 @@
 %%%%%% A new figure is created for each excitation
 
 
-n = 4; %%%Subplots matrix number of rows
-m = 3; %%%Subplots matrix number of columns
+n = 6; %%%Subplots matrix number of rows
+m = 4; %%%Subplots matrix number of columns
 test = ['b-', 'g-'];
 
 
@@ -16,8 +16,7 @@ figures = gobjects(length(Excitations) +1 ,1);
 
 
 %set this as the last figure
-figures(end) = excitationsFigure;
-hold on
+excitationsFigure = figures(end);
 
 
 for exciteind = 1: length(Excitations)
@@ -35,13 +34,13 @@ figures(exciteind) = newfig;
     hold on
     
     %%plot the Decay
-    semilogy(Time_Axis, log10(Decay(:,tempind, exciteind)),'b.') 
+    semilogy(Time_Axis, Decay(:,tempind, exciteind),'b.') 
     
     %%highlight the fit window in the decay
-    plot(Time_Axis, log10(Decay_WithinFitWindow(:,tempind, exciteind)),'r.') 
+    plot(Time_Axis, Decay_WithinFitWindow(:,tempind, exciteind),'r.') 
     
     %%Plot the fitted decay
-    plot(Time_Axis, log10(FittedDecays(:,tempind, exciteind)),'g-','LineWidth',1.5)
+    plot(Time_Axis, FittedDecays(:,tempind, exciteind),'g-','LineWidth',1.5)
     
     %Denote the temperature and the characteristic slope
     title("T = " + string(Temperatures(tempind)) + " K, \tau = " + string(t0_vTemp(1,tempind, exciteind)) + "\mus")
@@ -52,8 +51,8 @@ figures(exciteind) = newfig;
     
     
     
-saveas(gcf, char(figurename), 'fig');
-saveas(gcf, char(figurename), 'png');
+%saveas(gcf, char(figurename), 'fig');
+%saveas(gcf, char(figurename), 'png');
 
 end
 

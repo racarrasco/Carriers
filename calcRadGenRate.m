@@ -1,5 +1,5 @@
 function[radiativeGenCoefficient] = calcRadGenRate(n, k, temp, photonEnergyum, eg300)
-
+if(nargin == 5 )
 % Calculate the radiative coefficient at a number of different temperatures
 % The integral can be found in Blakemore's Semiconductor physics(1962)
 % formula 511.3 
@@ -30,7 +30,6 @@ function[radiativeGenCoefficient] = calcRadGenRate(n, k, temp, photonEnergyum, e
 [photonEnergyumSort, indices] = sort(photonEnergyum,'Descend');
 nS = n(indices);
 kS = k(indices);
-
 
 
 
@@ -105,9 +104,12 @@ radiativeGenCoefficient = 8*pi/heV^3/c^2.*integResult;
 %                     factor       factor     integrand
 %
 % it checks out to 1/(s cm^3)   
-
-
-
+else
+    % use 30e-12 as your B term, which will look bad
+    
+    
+    
+end
 
 
 

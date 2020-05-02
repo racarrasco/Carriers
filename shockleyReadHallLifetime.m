@@ -54,7 +54,7 @@ meFree = 9.10938356e-31;
 n0 = 0;
 p0 = 0;
 
-%the input is in units of 1e15 1/cm^3 (so we need to put it in 1/cm^3)
+%the input is in units of 1e15 1/cm^3, so we need to put it in 1/cm^3
 D = dopingDensity*1e15;
 switch(type)
     case('p')

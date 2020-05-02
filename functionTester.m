@@ -1,4 +1,5 @@
-%Lifetime Plotter
+%% Lifetime Plotter
+% Set up the parameters for testing
 
 %Read in the band parameters
 materialsDataBase = readtable('BandParameters.csv');
