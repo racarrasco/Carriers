@@ -1,6 +1,6 @@
 function[totalLifetime, tauRad, tauSRH, tauAug] =...
     calculateLifetimes(Tprobe, type, meStar, mhStar, egTempDep, ...
-    valenceEdge, conductionEdge,f1f2,einf,Nc, Nv, ni, G, phi, a, b, c)
+    valenceEdge, conductionEdge,einf,Nc, Nv, ni, G, phi, f1f2, a, b, c)
 % Calculate all of the lifetime components and add them together the rates
 % are added then the reciprocal of the total rate is the total lifetime
 
@@ -20,7 +20,7 @@ defectDensity = c;
 % doi: https://doi.org/10.1063/1.323633
 
 % put it in units of microseconds
-% radiative lifetime
+% radiative lifetime2
 tauRad = phi.*1e6 .*radiativeLifetime(type, ni, G, dopingDensity);
 
 % Shockley-Read-Hall lifetime
