@@ -1,6 +1,6 @@
 function[Nc, Nv, ni, G, phi] =...
     calculateKeyParameters(temp, meStar, mhStar, photonEnergyum,...
-nRefractive, kExtinction, eg300, eg,aGap,ncap,d) 
+nRefractive, kExtinction, eg300, eg,aGap,ncap,d, einf) 
 
 
 
@@ -18,8 +18,16 @@ phi = 1./(1-photonRecycling);
 Nc = densityInConduction(temp, meStar);
 Nv = densityInValence(temp, mhStar);
 
-%Calculate the radiative generation rate
-G = calcRadGenRate(nRefractive, kExtinction, temp,photonEnergyum, eg300);
+
+
 
 %Calculate the intrinsic carrier concentration
 ni = calculateIntrinsic(Nc, Nv,eg, temp);
+
+%Calculate the radiative generation rate through the integration method
+%%G = calcRadGenRate(nRefractive, kExtinction, temp,photonEnergyum, eg300);
+
+
+% Calculate the radiative generation rate through an analytic form of the
+% absorption coefficient using parabolic bands
+G = calcAnalyticG(temp, meStar, mhStar, ni, eg,einf);
