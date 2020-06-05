@@ -18,12 +18,12 @@ function[totalLifetime] = calculateTotalLifetime(...
 % e = Ev the valence edge energy (taken as the negative band gap)
 % f = Ec the conduction edge energy (taken as the 0 reference) 
 %%%% g = f1f2 the overlap integral for auger calculation
-%g h = einf the static dielectric constant below the absorption edge
-%h k = Nc the conduction band effective density of states
-%k l = Nv the valence band effective density of states
-%l m = ni the intrinsic carrier concentration
-%m n = G  the radiative generation rate 
-%n o = phi the photon recycling factor
+%g  = einf the static dielectric constant below the absorption edge
+%h  = Nc the conduction band effective density of states
+%k  = Nv the valence band effective density of states
+%l  = ni the intrinsic carrier concentration
+%m  = G  the radiative generation rate 
+%n  = phi the photon recycling factor
 
 
 % FITTING PARAMETERS
