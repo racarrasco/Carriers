@@ -1,4 +1,4 @@
-%%%Tester
+%%Tester
 sigmaN = 0.7;
 meStar = ; 
 mhStar = ;
