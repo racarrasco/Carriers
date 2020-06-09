@@ -61,6 +61,7 @@ nRefractive = opticalConstantsTable.n;
 %            Kosireddy, and S. R. Johnson, J. Appl. Phys. vol 27 p 165705
 %            (2020). Absorption edge characteristics of GaAs, GaSb, InAs,
 %            InSb
+
 eg = bandParams(1);
 mestar  = bandParams(2);
 gamm1 = bandParams(3);
