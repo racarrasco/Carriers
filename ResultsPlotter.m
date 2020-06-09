@@ -27,6 +27,7 @@ figurename = string(SampleName) + '_AngleSetting_' + string(Excitations(excitein
 newfig = figure('Name',figurename, 'NumberTitle', 'off');
 
 figures(exciteind) = newfig;
+
     
     for tempind = 1:length(Temperatures) 
     %%make a subplot for each temperature
@@ -45,6 +46,7 @@ figures(exciteind) = newfig;
     %Denote the temperature and the characteristic slope
     title("T = " + string(Temperatures(tempind)) + " K, \tau = " + string(t0_vTemp(1,tempind, exciteind)) + "\mus")
     hold off
+    set(gca,'YScale','log');
     end
     
     
@@ -59,16 +61,23 @@ end
 %% Plot the lifetimes
 
 hold on
+ColorWheel = [ 'bo-' ; 'go-' ; 'ro-' ; 'ko-' ; 'co-' ; 'yo-' ];
 
-for exciteind = [1,length(Excitations)]
-   name = num2str(Excitations(exciteind)) + " Low Pass Low tail states"  ;
-   plot(Temperatures, t0_vTemp(1,:,exciteind), '-o','Displayname',name ) 
+figurename = string(SampleName) + '_FinalResults';
+newfig = figure('Name',figurename, 'NumberTitle', 'off');
+
+figures(end) = newfig;
+hold on
+for exciteind = 1:length(Excitations)
+   name = num2str(Excitations(exciteind));
+   plot(Temperatures, t0_vTemp(1,:,exciteind), ColorWheel(exciteind,:),'Displayname',name ) 
  
     
 end
-%title('L19-096')
-%xlabel('Temperature (K)')
-%ylabel('Characteristic slope (\mus)')
+legend
+title(SampleName)
+xlabel('Temperature (K)')
+ylabel('Characteristic slope (\mus)')
 %% Plot a single lifetime
 
 %%% Double click on a FittedResults mat file and hit run!

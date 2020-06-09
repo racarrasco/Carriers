@@ -1,3 +1,6 @@
 Work on photon recycling factor!
 Perhaps include a K.P. theory tool in order to calculate the absorption 
 coefficient.
+
+Look into how effective masses change with alloying
+

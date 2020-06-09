@@ -82,10 +82,3 @@ denom = 2*d*( dtheta*trapz( denom_integrand(1,:) , 2 ) );
 
 % Photon recycling factor
 gamma = ( r1 +  r2 + r3 )/denom;
-
-
-
-
-
-
-
