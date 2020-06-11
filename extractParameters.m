@@ -71,7 +71,9 @@ gamm2 = bandParams(4);
 %parameters The formula for calculating the heavy hole effective mass is in
 % equation 2.16 in Vurgaftman's paper J. Appl. Phys. vol 89, 5815 (2001)
 %Band Parameters for III-V compound semiconductors and their alloys
-mhstar = 1/(gamm1 - 2*gamm2);
+multiplier = 1;
+
+mhstar = multiplier.*1/(gamm1 - 2*gamm2);
 
 varshni = @(T) eg - bandParams(6).*T.^2./(T + bandParams(7));
 einf = bandParams(8);

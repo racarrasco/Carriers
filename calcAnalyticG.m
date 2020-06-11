@@ -1,4 +1,4 @@
-function [radiativeGenCoefficient] = calcAnalyticG(T, meStar, mhStar, ni, Eg, einf)
+function [radiativeGenCoefficient] = calcAnalyticG(x, meStar, mhStar, ni, Eg, einf)
 % Calculate the equilibrium rate of radiative recombination found from
 % references M. A. Kinch, M. J. Brau, And A. Simmons, JAP vol 44, p. 1649
 % (1973) 
@@ -7,6 +7,16 @@ function [radiativeGenCoefficient] = calcAnalyticG(T, meStar, mhStar, ni, Eg, ei
 % This could also be found in R. N. Hall  Proc. Inst. of Electr. Eng. B vol
 % 106 p 923 (1959).Recombination Processes in Semiconductors.
 % 10.1049/pi-b-2.1959.0171
+
+
+
+%Make the temperature as a row because the band gaps are a row
+if(size(x,1) > 1)
+    T = x';
+else
+    T = x; % the temperature is already a row
+end
+
 
 
 %Free electron mass in kg

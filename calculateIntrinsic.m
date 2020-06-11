@@ -1,5 +1,14 @@
-function[intrinsic] = calculateIntrinsic(Nc, Np,eg, T)
+function[intrinsic] = calculateIntrinsic(Nc, Np,eg, x)
 %Calculate the intrinsic carrier concentration as a function of temperature
+
+
+
+%make it row vector
+if(size(x,1)>1)
+    T = x';
+else
+    T = x;
+end
 
 % boltzmann constant in joules/Kelvin
 boltzmann = 1.38064852e-23;
