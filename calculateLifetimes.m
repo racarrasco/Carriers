@@ -1,6 +1,6 @@
 function[totalLifetime, tauRad, tauSRH, tauAug] =...
     calculateLifetimes(Tprobe, type, meStar, mhStar, egTempDep, ...
-    valenceEdge, conductionEdge,einf,Nc, Nv, ni, G, phi, f1f2, a, b, c)
+    valenceEdge, conductionEdge,einf,Nc, Nv, ni, G, phi, f1f2, a, b, c,d)
 % Calculate all of the lifetime components and add them together the rates
 % are added then the reciprocal of the total rate is the total lifetime
 
@@ -13,6 +13,7 @@ function[totalLifetime, tauRad, tauSRH, tauAug] =...
 dopingDensity = a;
 defectLevel = b;
 defectDensity = c;
+activationEnergy = d;
 
 % this has some similarity to Asbeck's calculation of photon recycling
 % found here: P. Asbeck, J. Appl. Phy. vol 48, p 820 (1977). Self-absorption
@@ -26,7 +27,8 @@ tauRad = phi.*1e6 .*radiativeLifetime(type, ni, G, dopingDensity);
 % Shockley-Read-Hall lifetime
 tauSRH = ...
 1e6.*shockleyReadHallLifetime(Tprobe, type, meStar, mhStar,Nc, Nv, ni,...
-valenceEdge, conductionEdge, defectLevel, defectDensity,dopingDensity);
+valenceEdge, conductionEdge, defectLevel, defectDensity,dopingDensity,...
+activationEnergy);
 
 % Auger recombination lifetime
 tauAug = 1e6.*augerLifetime(Tprobe, type, meStar, mhStar, f1f2,egTempDep,...

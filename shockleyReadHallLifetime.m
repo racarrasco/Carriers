@@ -1,6 +1,6 @@
 function[tauSRH] = ...
     shockleyReadHallLifetime(temp, type,meStar,mhStar, Nc, Nv, ni...
-    ,Ev,Ec,Et,sigmaN,dopingDensity)
+    ,Ev,Ec,Et,sigmaN,dopingDensity, activation)
 
 % Calculate the Shockley-Read hall lifetime as a function of temperature
 
@@ -26,7 +26,7 @@ function[tauSRH] = ...
 % Et =          trap energy
 % sigmaN =      cross section multiplied by the trap density
 % dopingDensity doping density, can be either n-type or p-type
-
+% activation   = Activation energy
 %make the temperature a row since the band gaps are a row-wise vector
 if(size(temp,1) > 1)
     x = temp';
@@ -91,8 +91,8 @@ vp = sqrt(8*kb*x/(pi*(mhStar*meFree)));
 vn = sqrt(8*kb*x/(pi*(meStar*meFree)));
 
 
-taup0 = 1./(sigmaN.*vp);
-taun0 = 1./(sigmaN.*vn);
+taup0 = 1./(sigmaN.*vp.*exp(-activation./kbTeV));
+taun0 = 1./(sigmaN.*vn.*exp(-activation./kbTeV));
 
 
 

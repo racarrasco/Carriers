@@ -1,5 +1,5 @@
 function[totalLifetime] = calculateTotalLifetime2(...
-    x, a, b, c, d, e, f, g, h, k, l, m, n, o, p, q, r,s,t)
+    x, a, b, c, d, e, f, g, h, k, l, m, n, o, p, q, r,s,t,u,v)
 % Calculate all of the lifetime components and add them together. The rates
 % are added then the reciprocal of the total rate is the total lifetime
 % This is for the fitting routine where the single output is the total
@@ -31,10 +31,11 @@ function[totalLifetime] = calculateTotalLifetime2(...
 % p = doping density in units of 1e-15cm^(-3)
 % q = defect level in reference to the conduction band
 % r = defect density in units of inverse meters
+% s = Activation Energy 1
 
-% s = Defect level 2 in reference to the conduction band
-% t = defect density 2 in units of inverse meters
-
+% t = Defect level 2 in reference to the conduction band
+% u = defect density 2 in units of inverse meters
+% v = Activation Energy 2
 
 
 
@@ -43,10 +44,11 @@ function[totalLifetime] = calculateTotalLifetime2(...
 dopingDensity = p;
 defectLevel = q;
 defectDensity = r; 
+activation1 = s;
 
-defectLevel2 = s;
-defectDensity2 = t;
-
+defectLevel2 = t;
+defectDensity2 = u;
+activation2 = v;
 
 
 
@@ -62,10 +64,10 @@ tauRad = n.*1e6 .*radiativeLifetime(a, l, m, dopingDensity);
 %                defectDensity, dopingDensity);
 tauSRH = 1e6.*...
        shockleyReadHallLifetime(x, a, b, c, h, k, l, e, f, defectLevel,...
-       defectDensity, dopingDensity);
+       defectDensity, dopingDensity, activation1);
 tauSRH2 = 1e6.*...
        shockleyReadHallLifetime(x, a, b, c, h, k, l, e, f, defectLevel2,...
-       defectDensity2, dopingDensity);
+       defectDensity2, dopingDensity, activation2);
     
 
 % tauAug = 1e6.*augerLifetime(Tprobe(x), type(a), meStar(b), mhStar(c), f1f2(o),

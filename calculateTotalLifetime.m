@@ -1,5 +1,5 @@
 function[totalLifetime] = calculateTotalLifetime(...
-    x, a, b, c, d, e, f, g, h, k, l, m, n, o, p, q, r)
+    x, a, b, c, d, e, f, g, h, k, l, m, n, o, p, q, r, s)
 % Calculate all of the lifetime components and add them together. The rates
 % are added then the reciprocal of the total rate is the total lifetime
 % This is for the fitting routine where the single output is the total
@@ -29,9 +29,9 @@ function[totalLifetime] = calculateTotalLifetime(...
 % FITTING PARAMETERS
 % o = Auger overlap parameter  OPTIONAL
 % p = doping density in units of 1e-15cm^(-3)
-% q = defect level in reference to the conduction band
+% q = defect level in reference to the conduction band (eV)
 % r = defect density in units of inverse meters
-
+% s = cross section activation energy (eV)
 
 
 
@@ -40,6 +40,7 @@ function[totalLifetime] = calculateTotalLifetime(...
 dopingDensity = p;
 defectLevel = q;
 defectDensity = r; 
+crossSection1  = s;
 
 
 
@@ -56,7 +57,7 @@ tauRad = n.*1e6 .*radiativeLifetime(a, l, m, dopingDensity);
 %                defectDensity, dopingDensity);
 tauSRH = 1e6.*...
        shockleyReadHallLifetime(x, a, b, c, h, k, l, e, f, defectLevel,...
-       defectDensity, dopingDensity);
+       defectDensity, dopingDensity, crossSection1);
 
 
 % tauAug = 1e6.*augerLifetime(Tprobe(x), type(a), meStar(b), mhStar(c), f1f2(o),
