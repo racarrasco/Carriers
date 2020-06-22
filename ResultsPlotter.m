@@ -98,11 +98,3 @@ semilogy(Time_Axis, Decay(:,tempIndex, excitIndex), 'b--','DisplayName', dataNam
 hold on
 plot(Time_Axis, Decay_WithinFitWindow(:, tempIndex, excitIndex),'r.', 'MarkerSize', 8)
 plot(Time_Axis, FittedDecays(:, tempIndex, excitIndex),'g-', 'LineWidth',2)
-
-
-
-
-
-
-
-
