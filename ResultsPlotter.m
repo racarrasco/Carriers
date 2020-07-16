@@ -48,11 +48,7 @@ figures(exciteind) = newfig;
     hold off
     set(gca,'YScale','log');
     end
-    
-    
-    
-    
-    
+     
 %saveas(gcf, char(figurename), 'fig');
 %saveas(gcf, char(figurename), 'png');
 
