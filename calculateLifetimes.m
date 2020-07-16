@@ -1,8 +1,15 @@
-function[totalLifetime, tauRad, tauSRH, tauAug] =...
+function[totalLifetime, tauRad, tauSRH] =...
     calculateLifetimes(Tprobe, type, meStar, mhStar, egTempDep, ...
-    valenceEdge, conductionEdge,einf,Nc, Nv, ni, G, phi, f1f2, a, b, c,d)
+    valenceEdge, conductionEdge,einf,Nc, Nv, ni, G, phi, a, b, c,d)
 % Calculate all of the lifetime components and add them together the rates
 % are added then the reciprocal of the total rate is the total lifetime
+
+%{ 
+Before!
+Tprobe, type meStar, mhStar, egTempDep, ...
+valenceEdge,conductionEdge, einf, Nc, Nv, ni, G, phi, f1f2, a,b,c,d
+%}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%Input Parameters %%%%%%%%%%%%%%%%%%%%%%
@@ -31,9 +38,9 @@ valenceEdge, conductionEdge, defectLevel, defectDensity,dopingDensity,...
 activationEnergy);
 
 % Auger recombination lifetime
-tauAug = 1e6.*augerLifetime(Tprobe, type, meStar, mhStar, f1f2,egTempDep,...
-    einf,dopingDensity);
+%tauAug = 1e6.*augerLifetime(Tprobe, type, meStar, mhStar, f1f2,egTempDep,...
+%    einf,dopingDensity);
 
 
 % Total lifetime as a function of temperature
-totalLifetime = 1./(1./tauRad + 1./tauSRH + 1./tauAug);
+totalLifetime = 1./(1./tauRad + 1./tauSRH); %+ 1./tauAug);

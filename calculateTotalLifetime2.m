@@ -1,5 +1,5 @@
 function[totalLifetime] = calculateTotalLifetime2(...
-    x, a, b, c, d, e, f, g, h, k, l, m, n, o, p, q, r,s,t,u,v)
+    x, a, b, c, d, e, f, g, h, k, l, m, n, p, q, r,s,t,u,v)
 % Calculate all of the lifetime components and add them together. The rates
 % are added then the reciprocal of the total rate is the total lifetime
 % This is for the fitting routine where the single output is the total
@@ -72,7 +72,7 @@ tauSRH2 = 1e6.*...
 
 % tauAug = 1e6.*augerLifetime(Tprobe(x), type(a), meStar(b), mhStar(c), f1f2(o),
 % egTempDep(d), einf(g),dopingDensity);
-tauAug = 1e6.*augerLifetime(x, a, b, c, o, d, g, dopingDensity);
+%tauAug = 1e6.*augerLifetime(x, a, b, c, o, d, g, dopingDensity);
 
 
 
