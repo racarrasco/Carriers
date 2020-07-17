@@ -28,7 +28,6 @@ function[tauSRH] = ...
 % dopingDensity doping density, can be either n-type or p-type
  
 
-ne = 1e15;
 %make the temperature a row since the band gaps are a row-wise vector
 if(size(temp,1) > 1)
     x = temp';
@@ -99,7 +98,7 @@ taun0 = 1./(sigmaN.*vn);
 
 
 
-tauSRHRow = (taup0.*(n0 + n1 + ne) + taun0.*(p0 + p1+ne) )./(p0 +n0 + ne);
+tauSRHRow = (taup0.*(n0 + n1) + taun0.*(p0 + p1) )./(p0 +n0);
 
 %Make the lifetime in the end as a column vector
 if(size(tauSRHRow,1)>1)
