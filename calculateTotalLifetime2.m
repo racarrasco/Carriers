@@ -5,7 +5,7 @@ function[totalLifetime] = calculateTotalLifetime2(...
 % This is for the fitting routine where the single output is the total
 % lifetime output, SO THIS FILE WILL BE HARD TO READ, IN ORDER TO
 % UNDERSTAND THE CODE BETTER (AND QUICKER) SEE THE FILE 
-% calculateLifetimes.m 
+% calculateLifetimes2.m 
 % This is when there is intentional doping!
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

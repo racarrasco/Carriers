@@ -23,7 +23,7 @@ function[tauSRH] = ...
 % ni =          intrinsic carrier concentration
 % Ev =          valence band edge (maximum)
 % Ec =          conduction band edge (minimum)
-% Et =          trap energy
+% Et =          trap energy with respect to the conduction band edge
 % sigmaN =      cross section multiplied by the trap density
 % dopingDensity doping density, can be either n-type or p-type
  
@@ -87,11 +87,12 @@ p1 = Nv.*exp((Ev - Et)./kbTeV);
 % E. H. Steenbergen, B. C. Connelly, G. D. Metcalfe, H. Shen, M. Wraback,
 % D. Lubyshev, Y. Qiu, J. M. Fastenau, A. W. K. Liu, S. Elhamri, O. O.
 % Cellek, and Y.-H. Zhang, Proc. SPIE 8512, 85120L (2012)
-% DOI: 10.1117/12.930949tau
+% DOI: 10.1117/12.93094
 vp = sqrt(8*kb*x/(pi*(mhStar*meFree)));
 vn = sqrt(8*kb*x/(pi*(meStar*meFree)));
 
-
+%Lifetime in high majority carrier environment (low T as well) because
+% minority carriers are low 
 taup0 = 1./(sigmaN.*vp);
 taun0 = 1./(sigmaN.*vn);
 

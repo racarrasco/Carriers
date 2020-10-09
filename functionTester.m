@@ -15,7 +15,7 @@ type = 'n';
 
 %Create a higher temperature resolution
 beginTemp = 0; %low limit temperature
-endTemp = 900; %high limit temperature
+endTemp = 900; %high limit temperaturef
 number = endTemp - beginTemp +1; %steps of 1 Kelvin
 Tprobe = linspace(beginTemp,endTemp, number);
 

@@ -4,8 +4,8 @@ function[totalLifetime] = calculateTotalLifetime(...
 % are added then the reciprocal of the total rate is the total lifetime
 % This is for the fitting routine where the single output is the total
 % lifetime output, SO THIS FILE WILL BE HARD TO READ, IN ORDER TO
-% UNDERSTAND THE CODE BETTER (AND QUICKER) SEE THE FILE 
-% calculateLifetimes.m 
+% UNDERSTAND THE CODE BETTER (AND QUICKER) SEE THE FILE
+% calculateLifetimes.m
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%Input Parameters %%%%%%%%%%%%%%%%%%%%%%
@@ -50,9 +50,9 @@ defectDensity = r;
 tauRad = n.*1e6 .*radiativeLifetime(a, l, m, dopingDensity);
 
 
-% tauSRH =  
+% tauSRH =
 % 1e6.*shockleyReadHallLifetime(Tprobe, type(a), meStar(b), mhStar(c),Nc (h),
-%                Nv(k), ni(l), valenceEdge(e), conductionEdge(f), defectLevel, 
+%                Nv(k), ni(l), valenceEdge(e), conductionEdge(f), defectLevel,
 %                defectDensity, dopingDensity);
 tauSRH = 1e6.*...
        shockleyReadHallLifetime(x, a, b, c, h, k, l, e, f, defectLevel,...
