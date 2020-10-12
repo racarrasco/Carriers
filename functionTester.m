@@ -7,7 +7,7 @@ bandParams = materialsDataBase.InAs;
 
 %band parameters and refractive index and absorption coefficient
 %Set parameters for testing
-[meStar, mhStar, eg, nRefractive,kExtinction, photonEnergyum, varshni, ...
+[meStar, mhStar, eg, nRefractive,kExtinction, photonEnergyum, varshniEinstein, ...
      einf, f1f2] = extractParameters(bandParams, 'InAs');
  
 %low doping
@@ -20,15 +20,15 @@ number = endTemp - beginTemp +1; %steps of 1 Kelvin
 Tprobe = linspace(beginTemp,endTemp, number);
 
 
-eg300 = varshni(300); %band gap at 300 K
-egTemp = varshni(Tprobe); %band gap as a function of temperature
-conductionEdge = varshni(0); % conduction band edge is just band gap at 0 K
+eg300 = varshniEinstein(300); %band gap at 300 K
+egTemp = varshniEinstein(Tprobe); %band gap as a function of temperature
+conductionEdge = varshniEinstein(0); % conduction band edge is just band gap at 0 K
 
 %Set the valence band edge as a 0 reference
 valenceEdge = conductionEdge - egTemp;
 dopingDensity = 3e16; %units of cm^(-3)
 
-defectLevel = [5e-3, 25e-3, 40e-3]; %follow elizabeth's plots for SRH
+defectLevel = [-5e-3, -25e-3, -40e-3]; %follow elizabeth's plots for SRH
 defectDensity =70;  %use a defect density from Olson
 
 

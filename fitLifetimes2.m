@@ -1,6 +1,9 @@
 function[fobjects, gofs, outputs,inputParameters,bestIndex] = ...
- fitLifetimes2(app, xin,yin, fitAugerOverlap,fixSRH1, type, eg, valenceEdge, conductionEdge,...
-  einf, phi, meStar, mhStar, f1f2, dopingDensity, defectLevel, defectDensity,upperN0,...
+ fitLifetimes2(app, xin,yin,w, fitAugerOverlap,fixSRH1, type, eg, valenceEdge, conductionEdge,...
+  einf, phi, meStar, mhStar, f1f2, dopingDensity, defectLevel, defectDensity,lowerN0,upperN0,...
+  lowerDefectLevel, upperDefectLevel,...
+  lowerDefectDensity, upperDefectDensity, lowerF1F2, upperF1F2,...
+  rngSeed, numberofGuesses,...
   defectLevel2, defectDensity2)
 
 % Calculate all of the lifetime components and add them together the rates
@@ -24,26 +27,28 @@ function[fobjects, gofs, outputs,inputParameters,bestIndex] = ...
 % Case 1: fit Bloch overlap, doping, defect1 level and defect1 density,
 % there is no secondary SRH component
 
-% Case 2: nargin == 20, but Bloch checkbox is false
+% Case 2: nargin == 28, but Bloch checkbox is false
 % fit doping, defect1 level, and defect1 density but do not fit Bloch overlap 
-
+%{
+Don't need this anymore since the weights are an input now
 % Give a weighting to each measurement and just use that value as the
 % weight
 % 1 us error is 1us,   and 400 ns error is 400 ns etc.
 w = [];
 %w = yin';
+%}
 
 % initialize the Mersenne twister generator using a seed of 2
-s = rng(2);
+s = rng(rngSeed);
 %initialize rownames for best fit variables
 fitNames = {};
-if(nargin == 18)
+if(nargin == 28)
    defectLevel2 = 0; 
    defectDensity2 = 0;
 
 end
 % Include the user guesses and size of the random guesses
-randomGuesses = 100; % this can change
+randomGuesses = numberofGuesses; % this can change
 iterations = randomGuesses + 1; % include the user guess
 guesses = zeros(iterations,8);  % guesses
 bestFits = zeros(iterations,8); % best fit parameters
@@ -64,22 +69,22 @@ guessInitialization = rand(randomGuesses, 8);
 %    defectDensity1, defectLevel2, defectDensity2
 
 % f1f2 range between 0.1 and 0.3
-f1f2Range = [0.1, 0.3 - 0.45*0.3];
+f1f2Range = [lowerF1F2*(1.1), upperF1F2*(0.90)];
 guesses(2:end, 1) = f1f2Range(1)  +...
     (f1f2Range(end) - f1f2Range(1)).*guessInitialization(:,1);
 
 % doping density between 1.45e14 and upperN0 - 0.45*upperN0
-dopingDensityRange = [0.05 + 0.45*.05, upperN0 - 0.45*upperN0];
+dopingDensityRange = [lowerN0*(1.1), upperN0*(0.90)];
 guesses(2:end, 2) = dopingDensityRange(1) + ...
     (dopingDensityRange(end) - dopingDensityRange(1)).*guessInitialization(:,2);
 
 % defectLevel 1 is between 30 meV and 300 meV
-defectLevel1Range = [-.300, -.030];
+defectLevel1Range = [lowerDefectLevel*(0.90), upperDefectLevel(0.9)];
 guesses(2:end, 3) = defectLevel1Range(1) + ...
     (defectLevel1Range(end) - defectLevel1Range(1)).*guessInitialization(:,3);
 
 % defect density 1 is between 0.1 m-1 and 60 m-1
-defectDensity1Range = [0.1, 60];
+defectDensity1Range = [lowerDefectDensity*(1.1), upperDefectDensity*(0.9)];
 guesses(2:end, 4) = defectDensity1Range(1) + ...
     (defectDensity1Range(end) - defectDensity1Range(1)).*guessInitialization(:,4);
 
@@ -143,7 +148,7 @@ maxIter = 600;
 %%% BEGIN STOCHASTIC FITTING ALGORITHM
 %%% CONSIDER ALL POSSIBLE SWITCH CASES WITH FITTING EFFECTIVE MASSES
 for i = 1:iterations
-    if(nargin == 18) 
+    if(nargin == 28) 
         if(fitAugerOverlap) 
                 casenumber = 1;
                 message = "Fit the effective masses, bloch overlap, doping, and SRH1 (6 parameters)";
@@ -372,7 +377,7 @@ for i = 1:iterations
     [Nc, Nv, ni, G] = calculateKeyParameters2(xin, meStarBest, mhStarBest,...
     eg, einf);
 
-    if(nargin == 17)
+    if(nargin == 28)
     [totalLifetime, tauRad, tauSRH,tauAug] = calculateLifetimes(xin, type,meStarBest,...
                     mhStarBest, eg, valenceEdge, conductionEdge, einf,Nc, Nv, ni, G, phi,...
                     blochOverlapbest, dopingDensitybest, defectLevelbest, defectDensitybest);
@@ -385,7 +390,7 @@ for i = 1:iterations
                     defectLevel2best, defectDensity2best);
     end
         
-                plot(app.UIAxes,xin, yin,'ko')
+                errorbar(app.UIAxes,xin, yin,1./w,'ko')
                 hold(app.UIAxes, 'on')
                 plot(app.UIAxes,xin,tauRad,ColorWheel2(1,:),'Displayname', 'Radiative')
                     
@@ -393,7 +398,7 @@ for i = 1:iterations
                 app.DopingDensityEditField.Value = dopingDensitybest;
                 app.DefectLevel1EditField.Value = -defectLevelbest*1000;
                 app.DefectDensity1EditField.Value = defectDensitybest;
-                if(nargin>17)
+                if(nargin>28)
                     plot(app.UIAxes, xin, tauSRH2, ColorWheel2(5,:), 'Displayname','SRH2')
                     app.DefectLevel2EditField.Value = -defectLevel2best*1000;
                     app.DefectDensity2EditField.Value = defectDensity2best;
