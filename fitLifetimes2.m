@@ -430,7 +430,7 @@ bestfobject = fobjects{bestIndex};
 tempsize = size(yin,2);
 %errors
 [sigmapBest, correlationBest] = calculateErrors(tempsize, bestOutput.Jacobian,...
-    bestrmse);
+    bestrmse,w);
 coeffss = coeffvalues(bestfobject);
 inputParameters = saveCoefficientsAndErrors(coeffss, fitNames,sigmapBest);
 
