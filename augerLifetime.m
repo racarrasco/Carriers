@@ -10,6 +10,10 @@ function[tauAuger] = augerLifetime(temp, a, b, c, d, f,g,h)
 %Original Auger paper: A. R. Beattie, and P. T. Landsberg, Proc. R. Soc.
 %Lond. A. vol 249, pg 16-29 (1959).
 
+%UPDATED ON 2/12/2021 TO INCLUDE HOLE COLLISIONS and it does not make any
+%noticeable difference even with intrinsically p-type materials go ahead
+%and try it for sample GN1886
+
 %Make the temperature as a row because the band gaps are a row
 if(size(temp,1) > 1)
     x = temp';
@@ -93,7 +97,11 @@ end
 tauAuger12 =  3.8e-18 * einf^2 * (1 + mu)^(1/2) * (1 + 2*mu) / (ratio * abs(F1F2)^2)...
     .*(eg./kT).^(3/2) .* exp((1 + 2*mu) / (1 + mu) .* eg./kT );
 
-tauAugerRow = 2*ni.^2 ./ (n0.^2 + n0.*p0) .*tauAuger12;
+beta = mu^(1/2) * (1 + 2 * mu) / (2 + mu)*exp(- (1 - mu)/(1 + mu).*eg./kT);
+tauAugerRow = 2*ni.^2 ./ ((n0 + p0).*(n0 + beta .* p0)) .*tauAuger12;
+%%%%Old implementation
+%%%%tauAugerRowee = 2*ni.^2 ./ ((n0 + p0).*(n0)) .*tauAuger12;
+
 
 if(size(tauAugerRow,1)>1)
     %It's actually a column vector
