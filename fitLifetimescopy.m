@@ -1,13 +1,12 @@
 function[fobjects, gofs, outputs,inputParameters,bestIndex] = ...
- fitLifetimes(app, xin,yin, w, fitAugerOverlap,fixSRH1,fixSRHdefectlevel1,...
-  type, meStar, mhStar, eg, valenceEdge, conductionEdge,...
+ fitLifetimes(app, xin,yin, w, fitAugerOverlap,fixSRH1, type, meStar, mhStar, eg, valenceEdge, conductionEdge,...
   einf, Nc, Nv, ni,G, phi, f1f2, dopingDensity, defectLevel, defectDensity,...
   lowerN0, upperN0,lowerDefectLevel, upperDefectLevel,...
   lowerDefectDensity, upperDefectDensity, lowerF1F2, upperF1F2,...
   rngSeed, numberofGuesses,...
   defectLevel2, defectDensity2)
 
-
+%COPY COPY COPY COPY COPY THIS IS A COPY
 % Calculate all of the lifetime components and add them together the rates
 % are added then the reciprocal of the total rate is the total lifetime
 % SEE THE calculateLifetimes.m file for meaning to the input parameters
@@ -41,7 +40,7 @@ w = [];
 s = rng(rngSeed);
 %Initialize rownames for best fit variables
 fitNames = {};
-if(nargin==33)
+if(nargin==32)
     defectLevel2 = 0;
     defectDensity2 = 0;
 end
@@ -141,7 +140,7 @@ maxIter = 600;
 %%% BEGIN STOCHASTIC FITTING ALGORITHM
 %%% CONSIDER ALL POSSIBLE SWITCH CASES WITH FIXED EFFECTIVE MASS
 for i = 1: iterations
-    if(nargin == 33)
+    if(nargin == 32)
         if(fitAugerOverlap)
                 casenumber = 1;
                 message = "Fit the Bloch overlap, doping, defectLevel1 and defect density product (4 parameters)";
@@ -346,7 +345,7 @@ for i = 1: iterations
     ColorWheel2 = [ "k--" ; "k-." ; "k:" ; "k-"; "-.r*"];
     
 
-    if(nargin == 33)
+    if(nargin == 32)
     [totalLifetime, tauRad, tauSRH,tauAug] = calculateLifetimes(xin, type,meStar,...
                     mhStar, eg, valenceEdge, conductionEdge, einf,Nc, Nv, ni, G, phi,...
                     blochOverlapbest, dopingDensitybest, defectLevelbest, defectDensitybest);
@@ -364,7 +363,7 @@ for i = 1: iterations
                 plot(app.UIAxes,xin,tauRad,ColorWheel2(1,:),'Displayname', 'Radiative')
                     
                 plot(app.UIAxes,xin,tauSRH,ColorWheel2(2,:), 'Displayname', 'SRH')
-                if(nargin>33)
+                if(nargin>32)
                     plot(app.UIAxes, xin, tauSRH2, ColorWheel2(5,:), 'Displayname','SRH2')
                     app.DefectLevel2EditField.Value = -defectLevel2best*1000;
                     app.DefectDensity2EditField.Value = defectDensity2best;
@@ -375,7 +374,7 @@ for i = 1: iterations
                     set(app.UIAxes, 'YScale', 'log')
                     
                     hold(app.UIAxes, 'off')
-                    ylim(app.UIAxes,[1e-2, 1e3])
+                    ylim(app.UIAxes,[1e-1, 1e3])
                     titleString = "Temperature Dependence (" + string(i) + "/" +...
                         string(iterations) + ")";
                     title(app.UIAxes,titleString);

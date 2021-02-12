@@ -25,7 +25,7 @@ switch(type)
        %We have p-type doping
          %Uses the law of mass action to calculate the density of electrons
          % and holes in the conduction and valence band, respectively
-         % (See: Steven H. Simon, The Oxford Solid State Basics
+         % (See: Steven H. Simon, The Oxford Solid State Basics)
          
          p0 = 0.5.*(sqrt(D^2 + 4.*ni.^2) + D);
          n0 = ni.^2./p0;     

@@ -256,7 +256,7 @@ end
 
 
 numPlots = size(fobjects,1);
-numSubPlots = 25;
+numSubPlots = 30;
 row = 1;
 column = 1;
 [~, indBest] = min([gofs.rmse]);
@@ -273,7 +273,7 @@ for indID = 1:numPlots
         leftToGo = numPlots - indID;
         
         if(leftToGo ~= 0)
-            column = 5;
+            column = 6;
             row = 5;
         else
             column = 1;
@@ -356,6 +356,8 @@ end
 % This is a copy paste of what was in fitLifetime link
 xin = allTemps;
 yin = allLTs;
+
+
 iterations = size(theObjects,1);
 
 gofi = theGofs(index);

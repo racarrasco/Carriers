@@ -83,13 +83,12 @@ n1 = Nc.*exp((Et - Ec)./kbTeV);
 p1 = Nv.*exp((Ev - Et)./kbTeV);
 
 % Thermal velocities of electron and holes
-% formula Taken from
-% E. H. Steenbergen, B. C. Connelly, G. D. Metcalfe, H. Shen, M. Wraback,
-% D. Lubyshev, Y. Qiu, J. M. Fastenau, A. W. K. Liu, S. Elhamri, O. O.
-% Cellek, and Y.-H. Zhang, Proc. SPIE 8512, 85120L (2012)
-% DOI: 10.1117/12.93094
-vp = sqrt(8*kb*x/(pi*(mhStar*meFree)));
-vn = sqrt(8*kb*x/(pi*(meStar*meFree)));
+% Factor of 3 means that we are looking at the Root mean square of the 3D
+% velocity the mean of the velocity has the 8/pi factor
+% this will simply affect the defect concentration product, (for the most
+% part) 
+vp = sqrt(3*kb*x/(mhStar*meFree));
+vn = sqrt(3*kb*x/(meStar*meFree));
 
 %Lifetime in high majority carrier environment (low T as well) because
 % minority carriers are low 

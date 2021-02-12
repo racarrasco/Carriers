@@ -1,12 +1,10 @@
 function[fobjects, gofs, outputs,inputParameters,bestIndex] = ...
- fitLifetimes(app, xin,yin, w, fitAugerOverlap,fixSRH1,fixSRHdefectlevel1,...
-  type, meStar, mhStar, eg, valenceEdge, conductionEdge,...
+ fitLifetimesTest(app, xin,yin, w, fitAugerOverlap,fixSRH1,fixSRHDefectLevel1, type, meStar, mhStar, eg, valenceEdge, conductionEdge,...
   einf, Nc, Nv, ni,G, phi, f1f2, dopingDensity, defectLevel, defectDensity,...
   lowerN0, upperN0,lowerDefectLevel, upperDefectLevel,...
   lowerDefectDensity, upperDefectDensity, lowerF1F2, upperF1F2,...
   rngSeed, numberofGuesses,...
   defectLevel2, defectDensity2)
-
 
 % Calculate all of the lifetime components and add them together the rates
 % are added then the reciprocal of the total rate is the total lifetime
@@ -28,14 +26,6 @@ function[fobjects, gofs, outputs,inputParameters,bestIndex] = ...
 % There are a lot of forks due to the multiple checkboxes
 % So this is something that will be 
 
-%{
-% NO longer need this since it is now an input
-% Give a weighting to each measurement and just use that value as the
-% weight
-% 1 us error is 1us,   and 400 ns error is 400 ns etc.
-%w = yin';
-w = [];
-%}
 
 % initialize the Mersenne twister generator using a seed (default 2)
 s = rng(rngSeed);
@@ -50,7 +40,6 @@ end
 randomGuesses = numberofGuesses; %this can change
 iterations = randomGuesses + 1; %include the user guess
 guesses = zeros(iterations,6); %guesses
-bestFits = zeros(iterations,6);% best fit parameters
 
 % [f1f2, dopingdensity, defectlevel, defectDensity, defectlevel2,
 % defectdensity2]
@@ -124,7 +113,8 @@ outputs = repmat(struct('numobs',0,'numparam', 0,...
 fobjects = cell(iterations,1);
 %%% END PREALLOCATION
 
-%%% BEGIN FITTING LIMITS
+%%% BEGIN FITTING LIMITS SO FIT WILL NOT GO ABOVE OR BELOW THESE LIMITS
+%%% SPECIFIED BY THE USER
 f1f2Limits = [lowerF1F2, upperF1F2];
 dopingLimits = [lowerN0, upperN0]; %units of 1e15 cm-3
 defectLevelLimits = [lowerDefectLevel,upperDefectLevel]; %units of eV
@@ -138,10 +128,120 @@ message = "";
 maxFunevals = 1000;
 maxIter = 600;
 
+
+
+%%% INITIALIZE PROBLEM PARAMETERS
+problemParameters = ['a'; 'b';'c';'d'; 'e'; 'f'; 'g';'h';'k';'l';'m';'n'];
+%Initialized Problem Values
+problemValues = {type, meStar, mhStar, eg, valenceEdge, conductionEdge,...
+                    einf, Nc, Nv, ni, G, phi};
+initialSize = size(problemParameters,1);
+
+if(nargin ==33) %do we have an undoped sample
+    iterationGuesses = [guesses(:,1), guesses(:,2), guesses(:,3), guesses(:,4)];
+    fitNames = {'f1f2','dopingDensity_1e15_cm3', 'defectLevel_eV','defectDensity_m1'};
+    lower = [f1f2Limits(1), dopingLimits(1),defectLevelLimits(1),defectDensityLimits(1)];
+    upper = [f1f2Limits(2), dopingLimits(2),defectLevelLimits(2),defectDensityLimits(2)];
+    if(~fitAugerOverlap) %fix the bloch overlap value
+        %Add the block overlap parameter as a FIXED 'problem' parameter
+        problemParameters(initialSize + 1) = 'o';
+        %the user input is the problem vale
+        problemValues{initialSize + 1} = f1f2;
+        %expand the size
+        initialSize = initialSize + 1;   
+        %remove the bloch overlap from the guess and limits
+        iterationGuesses(:,1) = [];
+        fitNames(1) = [];
+        lower(1) = [];
+        upper(1) = [];
+    end
+    if(fixSRHDefectLevel1) %Fix the SRH defect level
+       %Add the problem parameter in 'problem'
+       problemParameters(initialSize + 1) = 'q';
+       %Add the problem value in problemValue
+       problemValues{initialSize + 1} = defectLevel;
+       %increase the size of the problem array
+       initialSize = initialSize + 1;
+       
+       if(~fitAugerOverlap)
+            %remove the SRH1 guess and name
+            iterationGuesses(:,2) = [];
+            fitNames(2) = [];
+            lower(2) = [];
+            upper(2) = [];
+          
+       else
+            iterationGuesses(:,3) = [];
+            fitNames(3) = [];
+            lower(3) = [];
+            upper(3) =[];
+       end
+    end
+    ft = fittype('calculateTotalLifetime(x, a, b, c, d, e, f, g, h, k, l, m, n, o, p, q, r)',...
+        'problem', problemParameters);
+else %We have a doped sample
+    iterationGuesses = guesses;
+    fitNames = {'f1f2','dopingDensity_1e15_cm3', 'defectLevel_eV','defectDensity_m1',...
+        'defecLevel2_ev','defectDensity2_m1'};
+    lower = [f1f2Limits(1), dopingLimits(1), defectLevelLimits(1), defectDensityLimits(1),...
+        defectLevelLimits(1), defectDensityLimits(1)];
+    upper = [f1f2Limits(2), dopingLimits(2), defectLevelLimits(2), defectDensityLimits(2),...
+        defectLevelLimits(2), defectDensityLimits(2)];
+    if(~fitAugerOverlap)% Fix the bloch overlap value
+        problemParameters(initialSize + 1) = 'o';
+        problemValues{initialSize + 1} = f1f2;
+        initialSize = initialSize + 1;
+        iterationGuesses(:,1) = [];
+        fitNames(1) = [];
+        lower(1) = [];
+        upper(1) = [];
+    end
+    if(fixSRH1) %Fix the SRH values
+        problemParameters(initialSize + 1) = '';
+        problemValues{initialSize + 1} = defectLevel;
+        problemParameters(initialSize + 2) = '';
+        problemValues{initialSize + 2} = defectDensity;
+        initialSize = initialSize + 2;
+        if(~fitAugerOverlap)
+            iterationGuesses(:,3) = [];
+            iterationGuesses(:,2) = [];
+            
+            fitNames(3) = [];
+            fitNames(2) = [];   
+            
+            lower(3) = [];
+            lower(2) = [];
+            
+            upper(3) = [];
+            upper(2) = [];
+        else
+            iterationGuesses(:,4) = [];
+            iterationGuesses(:,3) = [];
+            
+            fitNames(4) = [];
+            fitNames(3) = [];
+            
+            lower(4) = [];
+            lower(3) =[];
+            
+            upper(4) = [];
+            upper(3) = [];
+        end
+    end
+        ft = fittype('calculateTotalLifetime2(x, a, b, c, d, e, f, g, h, k, l, m, n, o, p, q, r,s,t)',...
+        'problem', problemParameters);  
+end
+
+
+
+
+
+
 %%% BEGIN STOCHASTIC FITTING ALGORITHM
-%%% CONSIDER ALL POSSIBLE SWITCH CASES WITH FIXED EFFECTIVE MASS
 for i = 1: iterations
-    if(nargin == 33)
+    %{
+    %%% CONSIDER ALL POSSIBLE SWITCH CASES WITH FIXED EFFECTIVE MASS
+    if(nargin == 32)
         if(fitAugerOverlap)
                 casenumber = 1;
                 message = "Fit the Bloch overlap, doping, defectLevel1 and defect density product (4 parameters)";
@@ -301,7 +401,7 @@ for i = 1: iterations
             else
                 casenumber = 6;
                 message = "Fit the SRH1, SRH2, and doping, (5 parameters)";
-                % Fit SRH1, SRH2, doping, FIX Bloxh overlap parameter (5 parameters)
+                % Fit SRH1, SRH2, doping, FIX Bloch overlap parameter (5 parameters)
                 ft = fittype('calculateTotalLifetime2(x, a, b, c, d, e, f, g, h, k, l, m, n, o, p, q, r, s, t)',...
                 'problem',['a'; 'b'; 'c'; 'd'; 'e'; 'f'; 'g'; 'h'; 'k'; 'l'; 'm'; 'n';'o']);
             % Fit parameter  p(doping density) q(defectLevel1) r(defectDensity1)
@@ -336,7 +436,16 @@ for i = 1: iterations
         end
 
     end
+    %}
     
+    [fobjects{i}, gofs(i), outputs(i)] = fit(xin',yin',ft,...
+                    'problem',problemValues,...
+                    'Lower', lower,...
+                    'Upper', upper, ...
+                    'Startpoint', iterationGuesses(i,:),...
+                    'Weights', w,...
+                    'MaxFunEvals', maxFunevals,...
+                    'MaxIter', maxIter);
     %PLOT the iterations of the fits on the app
 
     dopingDensitybest = fobjects{i}.p;
@@ -376,40 +485,17 @@ for i = 1: iterations
                     
                     hold(app.UIAxes, 'off')
                     ylim(app.UIAxes,[1e-2, 1e3])
+                    yticks(app.UIAxes,'auto')  
                     titleString = "Temperature Dependence (" + string(i) + "/" +...
                         string(iterations) + ")";
                     title(app.UIAxes,titleString);
                     app.DopingDensityEditField.Value = dopingDensitybest;
                     app.DefectLevel1EditField.Value = -1000*defectLevelbest;
                     app.DefectDensity1EditField.Value = defectDensitybest;
-                    app.BlochoverlapEditField.Value = blochOverlapbest;
-   
-        
-    
-    
-    
-    
+                    app.BlochoverlapEditField.Value = blochOverlapbest;  
     
 end
-%%% What parameters were being fit?
-indices = logical([0, 0, 0, 0, 0, 0]);
-columns = {'F1F2', 'dopingDensity_1e15_cm3', 'DefectLevel_meV', 'defectDensity_m1',...
-    'DefectLevel2_meV','DefectDensity2_m1'};
-    switch(casenumber)
-        case 1 %bloch overlap, doping, defectlevel1 and defectdensity
-            indices = logical([1, 1, 1, 1, 0, 0]);   
-        case 2
-            indices = logical([0, 1, 1, 1, 0, 0]);
-        case 3
-            indices = logical([1, 1, 0, 0, 1, 1]);
-        case 4
-            indices = logical([1, 1, 1, 1, 1, 1]);
-        case 5
-            indices = logical([0, 1, 0, 0, 1, 1]);
-        case 6
-            indices = logical([0, 1, 1, 1, 1, 1]);
-            
-    end
+
 % Get the best fit results from the 101 guesses
 [bestrmse,bestIndex] = min([gofs.rmse]);
 %output results for the jacobian
@@ -422,9 +508,6 @@ tempsize = size(yin,2);
 [sigmapBest,correlationBest] = calculateErrors(tempsize,bestOutput.Jacobian,...
     bestrmse,w);
 coeffss = coeffvalues(bestfobject);
-inputParameters = saveCoefficientsAndErrors(coeffss,fitNames, sigmapBest);
-
-            
-            
+inputParameters = saveCoefficientsAndErrors(coeffss,fitNames, sigmapBest);          
       
 end

@@ -17,7 +17,6 @@ function[totalLifetime] = calculateTotalLifetime(...
 % d = egTempDep the temperature dependent band gap
 % e = Ev the valence edge energy (taken as the negative band gap)
 % f = Ec the conduction edge energy (taken as the 0 reference) 
-%%%% g = f1f2 the overlap integral for auger calculation
 %g  = einf the static dielectric constant below the absorption edge
 %h  = Nc the conduction band effective density of states
 %k  = Nv the valence band effective density of states
