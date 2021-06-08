@@ -8,28 +8,28 @@ function[totalLifetime] = calculateTotalLifetime(...
 % calculateLifetimes.m
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%Input Parameters %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% Input Parameters %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% x = Temperature that will be used to calculate the total lifetime
-% a = doping type n-type or p-type
-% b = meStar, the effective mass of conduction electron
-% c = mhStar, the effective mass of the heavy hole valence electron
-% d = egTempDep the temperature dependent band gap
-% e = Ev the valence edge energy (taken as the negative band gap)
-% f = Ec the conduction edge energy (taken as the 0 reference) 
-%g  = einf the static dielectric constant below the absorption edge
-%h  = Nc the conduction band effective density of states
-%k  = Nv the valence band effective density of states
-%l  = ni the intrinsic carrier concentration
-%m  = G  the radiative generation rate 
-%n  = phi the photon recycling factor
+% x  = Temperature that will be used to calculate the total lifetime
+% a  = doping type n-type or p-type
+% b  = meStar, the effective mass of conduction electron
+% c  = mhStar, the effective mass of the heavy hole valence electron
+% d  = egTempDep the temperature dependent band gap
+% e  = Ev the valence edge energy (taken as the negative band gap)
+% f  = Ec the conduction edge energy (taken as the 0 reference)
+% g  = einf the static dielectric constant below the absorption edge
+% h  = Nc the conduction band effective density of states
+% k  = Nv the valence band effective density of states
+% l  = ni the intrinsic carrier concentration
+% m  = G  the radiative generation rate
+% n  = phi the photon recycling factor
 
 
 % FITTING PARAMETERS
-% o = Auger overlap parameter  OPTIONAL
-% p = doping density in units of 1e-15cm^(-3)
-% q = defect level in reference to the conduction band
-% r = defect density in units of inverse meters
+% o  = Auger overlap parameter  OPTIONAL
+% p  = doping density in units of 1e-15cm^(-3)
+% q  = defect level in reference to the conduction band
+% r  = defect density in units of inverse meters
 
 
 

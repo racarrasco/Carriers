@@ -1,5 +1,5 @@
 function[Nc, Nv, ni, G] = calculateKeyParameters2(temp, meStar, mhStar,...
-    eg, einf) 
+    eg, einf)
 
 % Calculate the effective density of states in the valence and conduction
 % band

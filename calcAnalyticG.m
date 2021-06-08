@@ -6,15 +6,15 @@ function [radiativeGenCoefficient] = calcAnalyticG(x, meStar, mhStar, ni, Eg, ei
 %
 % This could also be found in R. N. Hall  Proc. Inst. of Electr. Eng. B vol
 % 106 p 923 (1959).Recombination Processes in Semiconductors.
-% 10.1049/pi-b-2.1959.0171
+% https://doi.org/10.1049/pi-b-2.1959.0171
 
 
 
-%Make the temperature as a row because the band gaps are a row
+% Make the temperature as a row because the band gaps are a row
 if(size(x,1) > 1)
     T = x';
 else
-    T = x; % the temperature is already a row
+    T = x; % The temperature is already a row
 end
 
 
@@ -57,5 +57,5 @@ radiativeGenCoefficient = ni.^2 .* 5.8e-13 .* einf^(1/2) .*...
     (meFree/(meStar.*meFree + mhStar.*meFree))^(3/2).* ...
     (1 + 1/meStar + 1/mhStar) .* (300./T).^(3/2).* ...
     (Eg.^2 + 3.*kT.*Eg + 3.75.*(kT).^2);
-
+end
 

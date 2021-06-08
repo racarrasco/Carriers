@@ -4,8 +4,8 @@ function[totalLifetime] = calculateTotalLifetime4(...
 % are added then the reciprocal of the total rate is the total lifetime
 % This is for the fitting routine where the single output is the total
 % lifetime output, SO THIS FILE WILL BE HARD TO READ, IN ORDER TO
-% UNDERSTAND THE CODE BETTER (AND QUICKER) SEE THE FILE 
-% calculateLifetimes.m 
+% UNDERSTAND THE CODE BETTER (AND QUICKER) SEE THE FILE
+% calculateLifetimes.m
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%Input Parameters %%%%%%%%%%%%%%%%%%%%%%
@@ -14,13 +14,13 @@ function[totalLifetime] = calculateTotalLifetime4(...
 % a = doping type n-type or p-type
 % b = egTempDep the temperature dependent band gap
 % c = Ev the valence edge energy (taken as the negative band gap)
-% d = Ec the conduction edge energy (taken as the 0 reference) 
+% d = Ec the conduction edge energy (taken as the 0 reference)
 % e  = einf the static dielectric constant below the absorption edge
 % f  = phi the photon recycling factor
 
 
 % FITTING PARAMETERS
-% g = mestar 
+% g = mestar
 % h = mhstar
 % k = Auger overlap parameter  OPTIONAL
 % l = doping density in units of 1e-15cm^(-3)
@@ -39,7 +39,7 @@ function[totalLifetime] = calculateTotalLifetime4(...
 %alphabetically, so a rename is performed in order understand the code
 dopingDensity = l;
 defectLevel = m;
-defectDensity = n; 
+defectDensity = n;
 
 
 

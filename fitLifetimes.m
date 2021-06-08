@@ -10,14 +10,14 @@ function[fobjects, gofs, outputs,inputParameters,bestIndex] = ...
 % are added then the reciprocal of the total rate is the total lifetime
 % SEE THE calculateLifetimes.m file for meaning to the input parameters
 
-%perform a stochastic approach
+% perform a stochastic approach
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%% Input Parameters %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%yin   =  the data we will be performing on the fitting
+% yin   =  the data we will be performing on the fitting
 
 %These will be the fit parameters, and MATLAB arranges the fit parameters
 %alphabetically, not in the order in which they appear.
@@ -262,7 +262,7 @@ for i = 1: iterations
                     defectLevel2best, defectDensity2best);
     end
         
-                errorbar(app.UIAxes,xin, yin,1./w,'ko')
+                errorbar(app.UIAxes,xin, yin,1./sqrt(w),'ko')
                 hold(app.UIAxes, 'on')
                 plot(app.UIAxes,xin,tauRad,ColorWheel2(1,:),'Displayname', 'Radiative')
                     
@@ -279,14 +279,14 @@ for i = 1: iterations
                     
                     hold(app.UIAxes, 'off')
                     ylim(app.UIAxes,[1e-2, 1e3])
-                    yticks(app.UIAxes,'auto')  
+                    yticks(app.UIAxes,'auto')
                     titleString = "Temperature Dependence (" + string(i) + "/" +...
                         string(iterations) + ")";
                     title(app.UIAxes,titleString);
                     app.DopingDensityEditField.Value = dopingDensitybest;
                     app.DefectLevel1EditField.Value = -1000*defectLevelbest;
                     app.DefectDensity1EditField.Value = defectDensitybest;
-                    app.BlochoverlapEditField.Value = blochOverlapbest;  
+                    app.BlochoverlapEditField.Value = blochOverlapbest;
     
 end
 
