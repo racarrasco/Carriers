@@ -2,6 +2,9 @@ function [Nc] = densityInConduction(x,meStar)
 % This is calculating formula 3.3 in
 % W. Shockley and W.T. Read, Jr. Phys. Rev. 87, 835 (1952)
 % Statistics of the Recombinations of Holes and Electrons
+% The effective density of states in the condution band 
+% it is a temperature dependent prefactor to the electron concentration in
+% the material
 
 %The integral is approximating fermi-Dirac statistics to Boltzmann
 %statistics, the approximation will fail for high doping and metals

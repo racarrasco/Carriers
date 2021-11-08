@@ -2,6 +2,9 @@ function [Nv] = densityInValence(x,mhStar)
 % This is calculating formula 3.3 in
 % W. Shockley and W.T. Read, Jr. Phys. Rev. 87, 835 (1952)
 % Statistics of the Recombinations of Holes and Electrons
+% Calculate the effective density of states in the valence band it's a
+% temperature dependent prefactor to calculating the hole concentration in
+% the valence band
 
 %The integral is approximating fermi-Dirac statistics to Boltzmann
 %statistics, the approximation may fail

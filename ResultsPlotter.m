@@ -6,11 +6,11 @@
 %%%%%% A new figure is created for each excitation
 
 
-n = 6; %%%Subplots matrix number of rows
-m = 4; %%%Subplots matrix number of columns
+n = 3; %%%Subplots matrix number of rows
+m = 5; %%%Subplots matrix number of columns
 test = ['b-', 'g-'];
 
-
+ 
 % Create an array of figures 
 figures = gobjects(length(Excitations) +1 ,1); 
 
@@ -47,6 +47,7 @@ figures(exciteind) = newfig;
     title("T = " + string(Temperatures(tempind)) + " K, \tau = " + string(t0_vTemp(1,tempind, exciteind)) + "\mus")
     hold off
     set(gca,'YScale','log');
+    xlim([0,1.5])
     end
      
 %saveas(gcf, char(figurename), 'fig');

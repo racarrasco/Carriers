@@ -69,7 +69,7 @@ guesses(2:end, 2) = dopingDensityRange(1) + ...
     (dopingDensityRange(end) - dopingDensityRange(1)).*guessInitialization(:,2);
 
 % defectLevel 1 is between 30 meV and 300 meV
-defectLevel1Range = [lowerDefectLevel*(0.90), upperDefectLevel*(0.9)];
+defectLevel1Range = [lowerDefectLevel*(0.9), upperDefectLevel*(0.9)];
 guesses(2:end, 3) = defectLevel1Range(1) + ...
     (defectLevel1Range(end) - defectLevel1Range(1)).*guessInitialization(:,3);
 
