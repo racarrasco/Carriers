@@ -1,6 +1,6 @@
 function[tauAuger] = augerLifetime(temp, a, b, c, d, f,g,h)
 %Calculate the Auger process; it follows Chapter 6 in Blakemore, which in
-%turn can be compared to reference: 
+%turn can be compared to reference:
 %B. V. Olson, E. A. Shaner, J. K. Kim, J. F. Klem, S. D. Hawkins, and M. E.
 %Flatte, Appl. Phys. Lett. vol 103, 052106 (2013). Identification of
 %dominant recombination mechanisms in narrow-bandgap InAs/InAsSb type-II

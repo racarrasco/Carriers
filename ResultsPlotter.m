@@ -7,7 +7,7 @@
 
 
 n = 3; %%%Subplots matrix number of rows
-m = 5; %%%Subplots matrix number of columns
+m = 6; %%%Subplots matrix number of columns
 test = ['b-', 'g-'];
 
  
@@ -47,7 +47,7 @@ figures(exciteind) = newfig;
     title("T = " + string(Temperatures(tempind)) + " K, \tau = " + string(t0_vTemp(1,tempind, exciteind)) + "\mus")
     hold off
     set(gca,'YScale','log');
-    xlim([0,1.5])
+    xlim([0,20])
     end
      
 %saveas(gcf, char(figurename), 'fig');

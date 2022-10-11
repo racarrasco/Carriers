@@ -1,10 +1,6 @@
 function[Nc, Nv, ni, G, phi] =...
-    calculateKeyParameters(temp, meStar, mhStar, photonEnergyum,...
-nRefractive, kExtinction, eg300, eg,aGap,ncap,d, einf) 
-
-
-
-
+    calculateKeyParameters(temp, meStar, mhStar, ...
+    eg,aGap,ncap,d, einf) 
 
 %this has some similarity to Asbeck's calculation of photon recycling
 %found here: P. Asbeck, J. Appl. Phy. vol 48, p 820 (1977). Self-absorption

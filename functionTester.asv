@@ -14,8 +14,8 @@ bandParams = materialsDataBase.InAs;
 type = 'n';
 
 %Create a higher temperature resolution
-beginTemp = 0; %low limit temperature
-endTemp = 900; %high limit temperaturef
+beginTemp = 50; %low limit temperature
+endTemp = 300; %high limit temperaturef
 number = endTemp - beginTemp +1; %steps of 1 Kelvin
 Tprobe = linspace(beginTemp,endTemp, number);
 
@@ -26,14 +26,20 @@ conductionEdge = varshniEinstein(0); % conduction band edge is just band gap at 
 
 %Set the valence band edge as a 0 reference
 valenceEdge = conductionEdge - egTemp;
-dopingDensity = 3e16; %units of cm^(-3)
+dopingDensity = bestInputs.Values(2)*1e15; %units of cm^(-3)
 
 defectLevel = [-5e-3, -25e-3, -40e-3]; %follow elizabeth's plots for SRH
 defectDensity =70;  %use a defect density from Olson
 
+meStarr  = 0.026;
+mhStarr  = 0.3333;
+
+
 
 %% Shockley read hall
 figure()
+tauSRH
+
 for i = 1:length(defectLevel)
 tauSRH = shockleyReadHallLifetime(Tprobe, type, meStar, mhStar, valenceEdge,...
           conductionEdge, defectLevel(i), defectDensity, dopingDensity);

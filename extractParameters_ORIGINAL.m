@@ -1,4 +1,4 @@
-function[ mestar, mhstar, eg, varshni, einf, f1f2, ag]... 
+function[ mestar, mhstar, eg, nRefractive, kExtinction, photonEnergyum, varshni, einf, f1f2, ag]... 
     = extractParameters(bandParams, material)
 %Extract the band parameters necessary to calculate the lifetime components
 
@@ -39,11 +39,10 @@ switch(material)
         opticalConstantsTable.n = 1/sqrt(2) .*sqrt(e1 + sqrt(e1.^2 +e2.^2));
         opticalConstantsTable.k = 1/sqrt(2).*sqrt(-e1 + sqrt(e1.^2 + e2.^2));
 end
-%{
+
 photonEnergyum = opticalConstantsTable.um;
 kExtinction = opticalConstantsTable.k;
 nRefractive = opticalConstantsTable.n;
-%}
 
 %row1     =  Band gap in eV (0 K) perhaps
 %row2     =  electron effective mass in units of free electron mass

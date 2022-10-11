@@ -20,12 +20,13 @@ function[tauSRH] = ...
 % mhStar =      hole effective mass
 % Nc =          effective density of States in the conduction band
 % Nv =          effective density of States in the valence band
-% ni =          intrinsic carrier concentration
-% Ev =          valence band edge (maximum)
-% Ec =          conduction band edge (minimum)
-% Et =          trap energy with respect to the conduction band edge
-% sigmaN =      cross section multiplied by the trap density
-% dopingDensity doping density, can be either n-type or p-type
+% ni =          intrinsic carrier concentration (cm-3)
+% Ev =          valence band edge (maximum) (eV)
+% Ec =          conduction band edge (minimum) (eV)
+% Et =          trap energy with respect to the conduction band edge (eV)
+% sigmaN =      cross section multiplied by the trap density (m-1)
+% dopingDensity doping density, can be either n-type or p-type units of
+% (1e15 cm-3)
  
 
 %make the temperature a row since the band gaps are a row-wise vector
